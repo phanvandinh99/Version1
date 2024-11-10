@@ -1,0 +1,975 @@
+﻿@using QLKyTucXa.Models
+
+@{
+    ViewBag.Title = "Trang Chủ";
+    Layout = "~/Areas/Student/Views/Shared/_LayoutStudent.cshtml";
+}
+
+@{
+    IEnumerable<LoaiKhu> listLoaiKhu = ViewBag.listLoaiKhu as IEnumerable<LoaiKhu>;
+    IEnumerable<Khu> listKhu = ViewBag.listKhu as IEnumerable<Khu>;
+    IEnumerable<Tang> listTang = ViewBag.listTang as IEnumerable<Tang>;
+    IEnumerable<LoaiPhong> listLoaiPhong = ViewBag.listLoaiPhong as IEnumerable<LoaiPhong>;
+}
+
+<!-- Home Slider Start -->
+<div id="at-homeslider-holder" class="at-homeslider-holder at-haslayout">
+    <div class="at-homeslider">
+        <div id="at-homeslidervone" class="at-homeslidervone owl-carousel">
+            <figure class="item"><img src="~/Assets/Student/images/slider-imgs/img-01.jpg" alt="slider img"></figure>
+            <figure class="item"><img src="~/Assets/Student/images/slider-imgs/img-02.jpg" alt="slider img"></figure>
+            <figure class="item"><img src="~/Assets/Student/images/slider-imgs/img-05.jpg" alt="slider img"></figure>
+            <figure class="item"><img src="~/Assets/Student/images/slider-imgs/img-08.jpg" alt="slider img"></figure>
+        </div>
+        <div id="at-homeslider-thumbnail" class="at-homeslider-thumbnail owl-carousel">
+            <div class="item at-thumbnail-content">
+                <h3><em>01.</em><span>Start Your Day in</span>Birmingham</h3>
+                <a href="javascript:void(0);" class="at-btn at-btnactive">Start Exploring</a>
+            </div>
+            <div class="item at-thumbnail-content">
+                <h3><em>02.</em><span>Luxury House in</span>Beautiful Forest</h3>
+                <a href="javascript:void(0);" class="at-btn at-btnactive">Start Exploring</a>
+            </div>
+            <div class="item at-thumbnail-content">
+                <h3><em>03.</em><span>Enjoy Your Holiday in</span>United Emirates</h3>
+                <a href="javascript:void(0);" class="at-btn at-btnactive">Start Exploring</a>
+            </div>
+            <div class="item at-thumbnail-content">
+                <h3><em>04.</em><span>Start Your Day in</span>Birmingham</h3>
+                <a href="javascript:void(0);" class="at-btn at-btnactive">Start Exploring</a>
+            </div>
+        </div>
+    </div>
+    <div class="at-home-banner at-home-bannervone at-haslayout">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="at-slider-content">
+                        <div class="at-title">
+                            <h2><span>Tra cứu</span>Phòng kí túc xá</h2>
+                        </div>
+
+                        <!-- #region Tìm kiếm cơ bản -->
+                        @using (Html.BeginForm("TraCuuPhong", "Phong", FormMethod.Post, new { @class = "at-formtheme at-formbanner" }))
+                        {
+                            <fieldset class="at-datetime">
+                                @if (listLoaiKhu != null && listLoaiKhu.Any())
+                                {
+                                    <div class="form-group">
+                                        <label for="loaiKhu">KTX dành cho Nam/Nữ</label>
+                                        <div class="at-select">
+                                            <select id="loaiKhu" name="MaLoaiKhu" class="form-control">
+                                                <option value="">-- Chọn Loại Khu --</option>
+                                                @foreach (var loaikhu in ViewBag.listLoaiKhu)
+                                                {
+                                                    <option value="@loaikhu.MaLoaiKhu">@loaikhu.TenLoaiKhu</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                }
+                                @if (listKhu != null && listKhu.Any())
+                                {
+                                    <div class="form-group">
+                                        <label for="khu">Tên Khu</label>
+                                        <div class="at-select">
+                                            <select id="khu" name="MaKhu" class="form-control">
+                                                <option value="">-- Chọn Khu --</option>
+                                                <!-- Options will be dynamically populated by JavaScript -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                }
+                                @if (listTang != null && listTang.Any())
+                                {
+                                    <div class="form-group">
+                                        <label for="tang">Tầng</label>
+                                        <div class="at-select">
+                                            <select id="tang" name="MaTang" class="form-control">
+                                                <option value="">-- Chọn Tầng --</option>
+                                                <!-- Options will be dynamically populated by JavaScript -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                }
+                            </fieldset>
+
+                            <fieldset class="at-roomform">
+                                <legend class="at-formtitle">Loại Phòng</legend>
+                                <div class="form-group">
+                                    <div class="at-room-radioholder">
+                                        @if (listLoaiPhong != null && listLoaiPhong.Any())
+                                        {
+                                            <span class="at-radio">
+                                                @foreach (var loaiPhong in listLoaiPhong)
+                                                {
+                                                    <input id="at-private-@loaiPhong.MaLoaiPhong" type="radio" name="MaLoaiPhong" value="@loaiPhong.MaLoaiPhong"
+                                                           @(loaiPhong == listLoaiPhong.First() ? "checked" : "")>
+                                                    <label for="at-private-@loaiPhong.MaLoaiPhong">
+                                                        <img src="~/Assets/Student/images/radio-imgs/img-02.jpg" alt="img">
+                                                        <span><em>@loaiPhong.TenLoaiPhong</em></span>
+                                                    </label>
+                                                }
+                                            </span>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="form-group at-btnarea">
+                                    <button type="submit" class="at-btn">Tìm Kiếm</button>
+                                </div>
+                            </fieldset>
+                        }
+                        <!-- #endregion Tìm kiếm cơ bản -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Home Slider End -->
+<!-- Main Start -->
+<main id="at-main" class="at-main at-haslayout">
+    <!-- Recommended Section Start -->
+    <section class="at-haslayout at-main-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-12 col-md-12 push-md-0 col-lg-10 push-lg-1 col-xl-8 push-xl-2">
+                    <div class="at-sectionhead">
+                        <div class="at-sectiontitle">
+                            <h2>Recommended For You</h2>
+                            <span>Start Your Trip With Memory</span>
+                        </div>
+                        <div class="at-description">
+                            <p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisiut aliquip</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="at-recommended-gallery at-haslayout">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+                        <div class="tr-trip-imgs">
+                            <figure>
+                                <a href="javascript:void(0)">
+                                    <img src="~/Assets/Student/images/trip-imgs/img-01.jpg" alt="img description">
+                                </a>
+                                <figcaption>
+                                    <div class="at-trip-content">
+                                        <h3>United Emirates</h3>
+                                        <h4>$113 <span>(Starting From)</span></h4>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                            <figure>
+                                <a href="javascript:void(0)">
+                                    <img src="~/Assets/Student/images/trip-imgs/img-02.jpg" alt="img description">
+                                </a>
+                                <figcaption>
+                                    <div class="at-trip-content">
+                                        <h3>China</h3>
+                                        <h4>$168 <span>(Starting From)</span></h4>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                            <figure>
+                                <a href="javascript:void(0)">
+                                    <img src="~/Assets/Student/images/trip-imgs/img-03.jpg" alt="img description">
+                                </a>
+                                <figcaption>
+                                    <div class="at-trip-content">
+                                        <h3>Sydney</h3>
+                                        <h4>$140 <span>(Starting From)</span></h4>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+                        <div class="tr-trip-imgs">
+                            <figure>
+                                <a href="javascript:void(0)">
+                                    <img src="~/Assets/Student/images/trip-imgs/img-04.jpg" alt="img description">
+                                </a>
+                                <figcaption>
+                                    <div class="at-trip-content">
+                                        <h3>Chicago</h3>
+                                        <h4>$120 <span>(Starting From)</span></h4>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                            <figure>
+                                <a href="javascript:void(0)">
+                                    <img src="~/Assets/Student/images/trip-imgs/img-05.jpg" alt="img description">
+                                </a>
+                                <figcaption>
+                                    <div class="at-trip-content">
+                                        <h3>United Kingdom</h3>
+                                        <h4>$240 <span>(Starting From)</span></h4>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+                        <div class="tr-trip-imgs">
+                            <figure>
+                                <a href="javascript:void(0)">
+                                    <img src="~/Assets/Student/images/trip-imgs/img-06.jpg" alt="img description">
+                                </a>
+                                <figcaption>
+                                    <div class="at-trip-content">
+                                        <h3>New York</h3>
+                                        <h4>$170 <span>(Starting From)</span></h4>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mt-last-child float-left">
+                        <div class="tr-trip-imgs">
+                            <figure>
+                                <a href="javascript:void(0)">
+                                    <img src="~/Assets/Student/images/trip-imgs/img-07.jpg" alt="img description">
+                                </a>
+                                <figcaption>
+                                    <div class="at-trip-content">
+                                        <h3>Rome</h3>
+                                        <h4>$180 <span>(Starting From)</span></h4>
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 at-btnarea-mt float-left">
+                        <div class="at-btnarea">
+                            <a href="javascript:void(0);" class="at-btn">View All</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Recommended Section Start -->
+    <!-- Top Categories Start -->
+    <section class="at-haslayout at-main-section at-sectionbg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-12 col-md-12 push-md-0 col-lg-10 push-lg-1 col-xl-8 push-xl-2">
+                    <div class="at-sectionhead">
+                        <div class="at-sectiontitle">
+                            <h2>Explore Top Categories</h2>
+                            <span>Quick Way To Be There</span>
+                        </div>
+                        <div class="at-description">
+                            <p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisiut aliquip</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="at-category-gallery at-haslayout">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+                        <a href="javascript:void(0);">
+                            <figure class="at-category-img">
+                                <img src="~/Assets/Student/images/category/img-01.jpg" alt="img description">
+                                <figcaption><h3>Apartments</h3><span>12,568 Listings</span></figcaption>
+                            </figure>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+                        <a href="javascript:void(0);">
+                            <figure class="at-category-img">
+                                <img src="~/Assets/Student/images/category/img-02.jpg" alt="img description">
+                                <figcaption><h3>Apartments</h3><span>12,568 Listings</span></figcaption>
+                            </figure>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+                        <a href="javascript:void(0);">
+                            <figure class="at-category-img">
+                                <img src="~/Assets/Student/images/category/img-03.jpg" alt="img description">
+                                <figcaption><h3>Apartments</h3><span>12,568 Listings</span></figcaption>
+                            </figure>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+                        <a href="javascript:void(0);">
+                            <figure class="at-category-img">
+                                <img src="~/Assets/Student/images/category/img-04.jpg" alt="img description">
+                                <figcaption><h3>Apartments</h3><span>12,568 Listings</span></figcaption>
+                            </figure>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+                        <a href="javascript:void(0);">
+                            <figure class="at-category-img">
+                                <img src="~/Assets/Student/images/category/img-05.jpg" alt="img description">
+                                <figcaption><h3>Apartments</h3><span>12,568 Listings</span></figcaption>
+                            </figure>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 float-left">
+                        <a href="javascript:void(0);">
+                            <figure class="at-category-img">
+                                <img src="~/Assets/Student/images/category/img-06.jpg" alt="img description">
+                                <figcaption><h3>Apartments</h3><span>12,568 Listings</span></figcaption>
+                            </figure>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 float-left at-btnarea">
+                        <a href="javascript:void(0);" class="at-btn">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Top Categories Start -->
+    <!-- Featured Properties Start -->
+    <section class="at-haslayout at-main-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-12 col-md-12 push-md-0 col-lg-10 push-lg-1 col-xl-8 push-xl-2">
+                    <div class="at-sectionhead">
+                        <div class="at-sectiontitle">
+                            <h2>Featured Properties</h2>
+                            <span>Treat Yourself Like a King</span>
+                        </div>
+                        <div class="at-description">
+                            <p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisiut aliquip</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div id="at-featured-sliders" class="at-featured-sliders owl-carousel">
+                        <div class="item">
+                            <div class="at-featured-holder">
+                                <div class="at-featuredslider owl-carousel">
+                                    <figure class="item">
+                                        <a href="javascript:void(0);"><img src="~/Assets/Student/images/featured-img/img-01.jpg" alt="img description" class="item"></a>
+                                        <figcaption>
+                                            <div class="at-slider-details">
+                                                <a href="javascript:void(0);" class="at-tag">Featured</a>
+                                                <a href="javascript:void(0);" class="at-tag at-rated">Top Rated</a>
+                                                <span class="at-photolayer"><i class="fas fa-layer-group"></i>04 Photos</span>
+                                                <a href="javascript:void(0);" class="at-like at-liked">Saved<i class="far fa-heart"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                    <figure class="item">
+                                        <a href="javascript:void(0);">
+                                            <img src="~/Assets/Student/images/featured-img/img-02.jpg" alt="img description" class="item">
+                                        </a>
+                                        <figcaption>
+                                            <div class="at-slider-details">
+                                                <a href="javascript:void(0);" class="at-tag">Featured</a>
+                                                <a href="javascript:void(0);" class="at-tag at-rated">Top Rated</a>
+                                                <span class="at-photolayer"><i class="fas fa-layer-group"></i>19 Photos</span>
+                                                <a href="javascript:void(0);" class="at-like">Saved<i class="far fa-heart"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <div class="at-featured-content">
+                                    <div class="at-featured-head">
+                                        <div class="at-featured-tags"><a href="javascript:void(0);">Apartment</a> </div>
+                                        <div class="at-featured-title">
+                                            <h3>Mountain Retreat Room <span>$240 <em>/ night</em></span></h3>
+                                            <div class="at-userimg at-verifieduser">
+                                                <img src="~/Assets/Student/images/featured-img/img-04.jpg" alt="img description">
+                                                <i class="fa fa-shield-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="at-featurerating">
+                                            <span class="at-stars"><span></span></span><em>14236 review</em>
+                                        </div>
+                                        <ul class="at-room-featured">
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-01.jpg" alt="img description"></i> 04 Guests</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-02.jpg" alt="img description"></i> 02 Bedrooms</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-03.jpg" alt="img description"></i> 04 Guests</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-04.jpg" alt="img description"></i> 02 Bedrooms</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="at-featured-footer">
+                                        <address>46 Morningside Road, London, UK</address>
+                                        <div class="at-share-holder">
+                                            <a href="javascript:void(0);"><i class="ti-more-alt"></i></a>
+                                            <div class="at-share-option">
+                                                <span>Share:</span>
+                                                <ul class="at-socialicons">
+                                                    <li class="at-facebook"><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li class="at-twitter"><a href="javascript:void(0);"><i class="fab fa-twitter"></i></a></li>
+                                                    <li class="at-youtube"><a href="javascript:void(0);"><i class="fab fa-youtube"></i></a></li>
+                                                    <li class="at-instagram"><a href="javascript:void(0);"><i class="fab fa-instagram"></i></a></li>
+                                                </ul>
+                                                <a href="javascript:void(0);">Report</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="at-featured-holder">
+                                <div class="at-featuredslider owl-carousel">
+                                    <figure class="item">
+                                        <img src="~/Assets/Student/images/featured-img/img-02.jpg" alt="img description" class="item">
+                                        <a data-rel="prettyPhoto[video]" href="https://youtu.be/XxxIEGzhIG8" class="at-video-icon"><i class="fab fa-youtube"></i></a>
+                                        <figcaption>
+                                            <div class="at-slider-details">
+                                                <a href="javascript:void(0);" class="at-tag">Featured</a>
+                                                <a href="javascript:void(0);" class="at-tag at-rated">Top Rated</a>
+                                                <span class="at-photolayer"><i class="fas fa-layer-group"></i>19 Photos</span>
+                                                <a href="javascript:void(0);" class="at-like">Saved<i class="far fa-heart"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                    <figure class="item">
+                                        <a href="javascript:void(0);"><img src="~/Assets/Student/images/featured-img/img-01.jpg" alt="img description" class="item"></a>
+                                        <figcaption>
+                                            <div class="at-slider-details">
+                                                <a href="javascript:void(0);" class="at-tag">Featured</a>
+                                                <a href="javascript:void(0);" class="at-tag at-rated">Top Rated</a>
+                                                <span class="at-photolayer"><i class="fas fa-layer-group"></i>04 Photos</span>
+                                                <a href="javascript:void(0);" class="at-like at-liked">Saved<i class="far fa-heart"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <div class="at-featured-content">
+                                    <div class="at-featured-head">
+                                        <div class="at-featured-tags"><a href="javascript:void(0);">Bed &amp; Breakfast</a> </div>
+                                        <div class="at-featured-title">
+                                            <h3>Balsam Fir Bungalow Suite <span>$120 <em>/ night</em></span></h3>
+                                            <div class="at-userimg at-verifieduser">
+                                                <img src="~/Assets/Student/images/featured-img/img-05.jpg" alt="img description">
+                                                <i class="fa fa-shield-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="at-featurerating">
+                                            <span class="at-stars"><span></span></span><em>14236 review</em>
+                                        </div>
+                                        <ul class="at-room-featured">
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-01.jpg" alt="img description"></i> 04 Guests</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-02.jpg" alt="img description"></i> 02 Bedrooms</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-03.jpg" alt="img description"></i> 04 Guests</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-04.jpg" alt="img description"></i> 02 Bedrooms</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="at-featured-footer">
+                                        <address>14 Tottenham Court Road, New York</address>
+                                        <div class="at-share-holder">
+                                            <a href="javascript:void(0);"><i class="ti-more-alt"></i></a>
+                                            <div class="at-share-option">
+                                                <span>Share:</span>
+                                                <ul class="at-socialicons">
+                                                    <li class="at-facebook"><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li class="at-twitter"><a href="javascript:void(0);"><i class="fab fa-twitter"></i></a></li>
+                                                    <li class="at-youtube"><a href="javascript:void(0);"><i class="fab fa-youtube"></i></a></li>
+                                                    <li class="at-instagram"><a href="javascript:void(0);"><i class="fab fa-instagram"></i></a></li>
+                                                </ul>
+                                                <a href="javascript:void(0);">Report</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="at-featured-holder">
+                                <div class="at-featuredslider owl-carousel">
+                                    <figure class="item">
+                                        <a href="javascript:void(0);"><img src="~/Assets/Student/images/featured-img/img-03.jpg" alt="img description" class="item"></a>
+                                        <figcaption>
+                                            <div class="at-slider-details">
+                                                <a href="javascript:void(0);" class="at-tag">Featured</a>
+                                                <img src="~/Assets/Student/images/featured-img/icons/360.png" alt="img description" class="at-360-img">
+                                                <span class="at-photolayer"><i class="fas fa-layer-group"></i>04 Photos</span>
+                                                <a href="javascript:void(0);" class="at-like at-liked">Saved<i class="far fa-heart"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                    <figure class="item">
+                                        <a href="javascript:void(0);">
+                                            <img src="~/Assets/Student/images/featured-img/img-02.jpg" alt="img description" class="item">
+                                        </a>
+                                        <figcaption>
+                                            <div class="at-slider-details">
+                                                <a href="javascript:void(0);" class="at-tag">Featured</a>
+                                                <a href="javascript:void(0);" class="at-tag at-rated">Top Rated</a>
+                                                <span class="at-photolayer"><i class="fas fa-layer-group"></i>19 Photos</span>
+                                                <a href="javascript:void(0);" class="at-like">Saved<i class="far fa-heart"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <div class="at-featured-content">
+                                    <div class="at-featured-head">
+                                        <div class="at-featured-tags"><a href="javascript:void(0);">Condo</a> </div>
+                                        <div class="at-featured-title">
+                                            <h3>Portland-Plush KING Room <span>$80 <em>/ night</em></span></h3>
+                                            <div class="at-userimg at-verifieduser">
+                                                <img src="~/Assets/Student/images/featured-img/img-06.jpg" alt="img description">
+                                                <i class="fa fa-shield-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="at-featurerating">
+                                            <span class="at-stars"><span></span></span><em>14236 review</em>
+                                        </div>
+                                        <ul class="at-room-featured">
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-01.jpg" alt="img description"></i> 04 Guests</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-02.jpg" alt="img description"></i> 02 Bedrooms</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-03.jpg" alt="img description"></i> 04 Guests</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-04.jpg" alt="img description"></i> 02 Bedrooms</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="at-featured-footer">
+                                        <address>3 Edgar Buildings, Austrailia</address>
+                                        <div class="at-share-holder">
+                                            <a href="javascript:void(0);"><i class="ti-more-alt"></i></a>
+                                            <div class="at-share-option">
+                                                <span>Share:</span>
+                                                <ul class="at-socialicons">
+                                                    <li class="at-facebook"><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li class="at-twitter"><a href="javascript:void(0);"><i class="fab fa-twitter"></i></a></li>
+                                                    <li class="at-youtube"><a href="javascript:void(0);"><i class="fab fa-youtube"></i></a></li>
+                                                    <li class="at-instagram"><a href="javascript:void(0);"><i class="fab fa-instagram"></i></a></li>
+                                                </ul>
+                                                <a href="javascript:void(0);">Report</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="at-featured-holder">
+                                <div class="at-featuredslider owl-carousel">
+                                    <figure class="item">
+                                        <a href="javascript:void(0);"><img src="~/Assets/Student/images/featured-img/img-01.jpg" alt="img description" class="item"></a>
+                                        <figcaption>
+                                            <div class="at-slider-details">
+                                                <a href="javascript:void(0);" class="at-tag">Featured</a>
+                                                <a href="javascript:void(0);" class="at-tag at-rated">Top Rated</a>
+                                                <span class="at-photolayer"><i class="fas fa-layer-group"></i>04 Photos</span>
+                                                <a href="javascript:void(0);" class="at-like at-liked">Saved<i class="far fa-heart"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                    <figure class="item">
+                                        <a href="javascript:void(0);">
+                                            <img src="~/Assets/Student/images/featured-img/img-02.jpg" alt="img description" class="item">
+                                        </a>
+                                        <figcaption>
+                                            <div class="at-slider-details">
+                                                <a href="javascript:void(0);" class="at-tag">Featured</a>
+                                                <a href="javascript:void(0);" class="at-tag at-rated">Top Rated</a>
+                                                <span class="at-photolayer"><i class="fas fa-layer-group"></i>19 Photos</span>
+                                                <a href="javascript:void(0);" class="at-like">Saved<i class="far fa-heart"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <div class="at-featured-content">
+                                    <div class="at-featured-head">
+                                        <div class="at-featured-tags"><a href="javascript:void(0);">Apartment</a> </div>
+                                        <div class="at-featured-title">
+                                            <h3>Mountain Retreat Room <span>$240 <em>/ night</em></span></h3>
+                                            <div class="at-userimg at-verifieduser">
+                                                <img src="~/Assets/Student/images/featured-img/img-04.jpg" alt="img description">
+                                                <i class="fa fa-shield-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="at-featurerating">
+                                            <span class="at-stars"><span></span></span><em>14236 review</em>
+                                        </div>
+                                        <ul class="at-room-featured">
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-01.jpg" alt="img description"></i> 04 Guests</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-02.jpg" alt="img description"></i> 02 Bedrooms</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-03.jpg" alt="img description"></i> 04 Guests</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-04.jpg" alt="img description"></i> 02 Bedrooms</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="at-featured-footer">
+                                        <address>46 Morningside Road, London, UK</address>
+                                        <div class="at-share-holder">
+                                            <a href="javascript:void(0);"><i class="ti-more-alt"></i></a>
+                                            <div class="at-share-option">
+                                                <span>Share:</span>
+                                                <ul class="at-socialicons">
+                                                    <li class="at-facebook"><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li class="at-twitter"><a href="javascript:void(0);"><i class="fab fa-twitter"></i></a></li>
+                                                    <li class="at-youtube"><a href="javascript:void(0);"><i class="fab fa-youtube"></i></a></li>
+                                                    <li class="at-instagram"><a href="javascript:void(0);"><i class="fab fa-instagram"></i></a></li>
+                                                </ul>
+                                                <a href="javascript:void(0);">Report</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="at-featured-holder">
+                                <div class="at-featuredslider owl-carousel">
+                                    <figure class="item">
+                                        <img src="~/Assets/Student/images/featured-img/img-02.jpg" alt="img description" class="item">
+                                        <a data-rel="prettyPhoto[video]" href="https://youtu.be/XxxIEGzhIG8" class="at-video-icon"><i class="fab fa-youtube"></i></a>
+                                        <figcaption>
+                                            <div class="at-slider-details">
+                                                <a href="javascript:void(0);" class="at-tag">Featured</a>
+                                                <a href="javascript:void(0);" class="at-tag at-rated">Top Rated</a>
+                                                <span class="at-photolayer"><i class="fas fa-layer-group"></i>19 Photos</span>
+                                                <a href="javascript:void(0);" class="at-like">Saved<i class="far fa-heart"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                    <figure class="item">
+                                        <a href="javascript:void(0);"><img src="~/Assets/Student/images/featured-img/img-01.jpg" alt="img description" class="item"></a>
+                                        <figcaption>
+                                            <div class="at-slider-details">
+                                                <a href="javascript:void(0);" class="at-tag">Featured</a>
+                                                <a href="javascript:void(0);" class="at-tag at-rated">Top Rated</a>
+                                                <span class="at-photolayer"><i class="fas fa-layer-group"></i>04 Photos</span>
+                                                <a href="javascript:void(0);" class="at-like at-liked">Saved<i class="far fa-heart"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <div class="at-featured-content">
+                                    <div class="at-featured-head">
+                                        <div class="at-featured-tags"><a href="javascript:void(0);">Bed &amp; Breakfast</a> </div>
+                                        <div class="at-featured-title">
+                                            <h3>Balsam Fir Bungalow Suite <span>$120 <em>/ night</em></span></h3>
+                                            <div class="at-userimg at-verifieduser">
+                                                <img src="~/Assets/Student/images/featured-img/img-05.jpg" alt="img description">
+                                                <i class="fa fa-shield-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="at-featurerating">
+                                            <span class="at-stars"><span></span></span><em>14236 review</em>
+                                        </div>
+                                        <ul class="at-room-featured">
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-01.jpg" alt="img description"></i> 04 Guests</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-02.jpg" alt="img description"></i> 02 Bedrooms</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-03.jpg" alt="img description"></i> 04 Guests</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-04.jpg" alt="img description"></i> 02 Bedrooms</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="at-featured-footer">
+                                        <address>14 Tottenham Court Road, New York</address>
+                                        <div class="at-share-holder">
+                                            <a href="javascript:void(0);"><i class="ti-more-alt"></i></a>
+                                            <div class="at-share-option">
+                                                <span>Share:</span>
+                                                <ul class="at-socialicons">
+                                                    <li class="at-facebook"><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li class="at-twitter"><a href="javascript:void(0);"><i class="fab fa-twitter"></i></a></li>
+                                                    <li class="at-youtube"><a href="javascript:void(0);"><i class="fab fa-youtube"></i></a></li>
+                                                    <li class="at-instagram"><a href="javascript:void(0);"><i class="fab fa-instagram"></i></a></li>
+                                                </ul>
+                                                <a href="javascript:void(0);">Report</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="at-featured-holder">
+                                <div class="at-featuredslider owl-carousel">
+                                    <figure class="item">
+                                        <a href="javascript:void(0);"><img src="~/Assets/Student/images/featured-img/img-03.jpg" alt="img description" class="item"></a>
+                                        <figcaption>
+                                            <div class="at-slider-details">
+                                                <a href="javascript:void(0);" class="at-tag">Featured</a>
+                                                <img src="~/Assets/Student/images/featured-img/icons/360.png" alt="img description" class="at-360-img">
+                                                <span class="at-photolayer"><i class="fas fa-layer-group"></i>04 Photos</span>
+                                                <a href="javascript:void(0);" class="at-like at-liked">Saved<i class="far fa-heart"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                    <figure class="item">
+                                        <a href="javascript:void(0);">
+                                            <img src="~/Assets/Student/images/featured-img/img-02.jpg" alt="img description" class="item">
+                                        </a>
+                                        <figcaption>
+                                            <div class="at-slider-details">
+                                                <a href="javascript:void(0);" class="at-tag">Featured</a>
+                                                <a href="javascript:void(0);" class="at-tag at-rated">Top Rated</a>
+                                                <span class="at-photolayer"><i class="fas fa-layer-group"></i>19 Photos</span>
+                                                <a href="javascript:void(0);" class="at-like">Saved<i class="far fa-heart"></i></a>
+                                            </div>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <div class="at-featured-content">
+                                    <div class="at-featured-head">
+                                        <div class="at-featured-tags"><a href="javascript:void(0);">Condo</a> </div>
+                                        <div class="at-featured-title">
+                                            <h3>Portland-Plush KING Room <span>$80 <em>/ night</em></span></h3>
+                                            <div class="at-userimg at-verifieduser">
+                                                <img src="~/Assets/Student/images/featured-img/img-06.jpg" alt="img description">
+                                                <i class="fa fa-shield-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="at-featurerating">
+                                            <span class="at-stars"><span></span></span><em>14236 review</em>
+                                        </div>
+                                        <ul class="at-room-featured">
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-01.jpg" alt="img description"></i> 04 Guests</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-02.jpg" alt="img description"></i> 02 Bedrooms</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-03.jpg" alt="img description"></i> 04 Guests</span></li>
+                                            <li><span><i><img src="~/Assets/Student/images/featured-img/icons/img-04.jpg" alt="img description"></i> 02 Bedrooms</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="at-featured-footer">
+                                        <address>3 Edgar Buildings, Austrailia</address>
+                                        <div class="at-share-holder">
+                                            <a href="javascript:void(0);"><i class="ti-more-alt"></i></a>
+                                            <div class="at-share-option">
+                                                <span>Share:</span>
+                                                <ul class="at-socialicons">
+                                                    <li class="at-facebook"><a href="javascript:void(0);"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li class="at-twitter"><a href="javascript:void(0);"><i class="fab fa-twitter"></i></a></li>
+                                                    <li class="at-youtube"><a href="javascript:void(0);"><i class="fab fa-youtube"></i></a></li>
+                                                    <li class="at-instagram"><a href="javascript:void(0);"><i class="fab fa-instagram"></i></a></li>
+                                                </ul>
+                                                <a href="javascript:void(0);">Report</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Featured Properties Start -->
+    <!-- Testimonials Start -->
+    <section class="at-haslayout at-main-section at-sectionbg">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 push-md-0 col-lg-10 push-lg-1 col-xl-8 push-xl-2">
+                    <div class="at-sectionhead">
+                        <div class="at-sectiontitle">
+                            <h2>Words From Clients</h2>
+                            <span>Client’s Great Feedback</span>
+                        </div>
+                        <div class="at-description">
+                            <p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisiut aliquip</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div id="at-testimonials-slider" class="at-testimonials-slider owl-carousel">
+                        <div class="at-testimonials-content item">
+                            <div class="at-description">
+                                <blockquote>
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="78" height="28" viewbox="0 0 78 28">
+                                        <image id="img1" data-name="“”" width="78" height="28" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAAAcCAMAAAD4MnnTAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAM1BMVEUAAAD4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCsAAABoLGZQAAAAD3RSTlMAZu7dVRF3mUTMqogiuzPnYEgLAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAa1JREFUSMeNVtGWhSAILE3TtPj/v93aBAfonF0euc4wDNC5y/LGGihui4otUlgXEylHItoL5nK9Uwc+bfSE4lt/U02zlUBvHJLqcaTOJPxvIgDwGo+6YiMJ5utBUjVpKGDlFbaV4qSj0dwJqaZfgbqDPtRlgFK0eu9I07g7sjHOelcV9lJYIegeKnpPNYjgsKrX19CdnfRdxaToFJR2TxdBHLjE4swmanWnpwtTyTRu2T5btd6d3juab6AvHmsxdNnTFUPHO3f4pqJh03s3tOtupSKcHFdolm650L1XQMcSUZqvudieQnZfgAvsG9US6DtRLN8w2FsvS7hmViizK7lKBaW16wN7FDo+qQa/rFLBD0u7azZ5LiV+fg6poAdd/LCyYePVgFVIbI09nObpqqHjX+Fi4BL+czgYfDGwlHimH4ezqxR9bzJ4wBS7GeOg07ek1bFymJDsVXfYhlfx4Z1A54JnhU0KW3AV/GTFJRgrmz/0orxT2226mksSuq/AWz2HIa9gGOoj1Q0U1EkTcsNx1mSPgvnkNWOctIJfn+0Zb1Xrfz3AkN2F/fHn4wcR1UH+/Sb0lwAAAABJRU5ErkJggg=="></image>
+                                    </svg>
+                                    <q>Consectetur adipisicing elitenu sed  eiusmod tempor do incididunt ut labore etna dolore magna aliqua enim minim veniamat quis nostrud exercitation ullamco laboris.</q>
+                                </blockquote>
+                            </div>
+                            <figure>
+                                <img src="~/Assets/Student/images/testimonials/img-01.jpg" alt="img description">
+                            </figure>
+                            <div class="at-testimonials-title">
+                                <h3><a href="javascript:void(0);">Marivel Rosenberry</a></h3>
+                                <span>United Kingdom</span>
+                            </div>
+                        </div>
+                        <div class="at-testimonials-content item">
+                            <div class="at-description">
+                                <blockquote>
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="78" height="28" viewbox="0 0 78 28">
+                                        <image id="img2" data-name="“”" width="78" height="28" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAAAcCAMAAAD4MnnTAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAM1BMVEUAAAD4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCsAAABoLGZQAAAAD3RSTlMAZu7dVRF3mUTMqogiuzPnYEgLAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAa1JREFUSMeNVtGWhSAILE3TtPj/v93aBAfonF0euc4wDNC5y/LGGihui4otUlgXEylHItoL5nK9Uwc+bfSE4lt/U02zlUBvHJLqcaTOJPxvIgDwGo+6YiMJ5utBUjVpKGDlFbaV4qSj0dwJqaZfgbqDPtRlgFK0eu9I07g7sjHOelcV9lJYIegeKnpPNYjgsKrX19CdnfRdxaToFJR2TxdBHLjE4swmanWnpwtTyTRu2T5btd6d3juab6AvHmsxdNnTFUPHO3f4pqJh03s3tOtupSKcHFdolm650L1XQMcSUZqvudieQnZfgAvsG9US6DtRLN8w2FsvS7hmViizK7lKBaW16wN7FDo+qQa/rFLBD0u7azZ5LiV+fg6poAdd/LCyYePVgFVIbI09nObpqqHjX+Fi4BL+czgYfDGwlHimH4ezqxR9bzJ4wBS7GeOg07ek1bFymJDsVXfYhlfx4Z1A54JnhU0KW3AV/GTFJRgrmz/0orxT2226mksSuq/AWz2HIa9gGOoj1Q0U1EkTcsNx1mSPgvnkNWOctIJfn+0Zb1Xrfz3AkN2F/fHn4wcR1UH+/Sb0lwAAAABJRU5ErkJggg=="></image>
+                                    </svg>
+                                    <q>Consectetur adipisicing elitenu sed  eiusmod tempor do incididunt ut labore etna dolore magna aliqua enim minim veniamat quis nostrud exercitation ullamco laboris.</q>
+                                </blockquote>
+                            </div>
+                            <figure>
+                                <img src="~/Assets/Student/images/testimonials/img-02.jpg" alt="img description">
+                            </figure>
+                            <div class="at-testimonials-title">
+                                <h3><a href="javascript:void(0);">Vince Hammel</a></h3>
+                                <span>United Emirates</span>
+                            </div>
+                        </div>
+                        <div class="at-testimonials-content item">
+                            <div class="at-description">
+                                <blockquote>
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="78" height="28" viewbox="0 0 78 28">
+                                        <image id="img3" data-name="“”" width="78" height="28" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAAAcCAMAAAD4MnnTAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAM1BMVEUAAAD4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCsAAABoLGZQAAAAD3RSTlMAZu7dVRF3mUTMqogiuzPnYEgLAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAa1JREFUSMeNVtGWhSAILE3TtPj/v93aBAfonF0euc4wDNC5y/LGGihui4otUlgXEylHItoL5nK9Uwc+bfSE4lt/U02zlUBvHJLqcaTOJPxvIgDwGo+6YiMJ5utBUjVpKGDlFbaV4qSj0dwJqaZfgbqDPtRlgFK0eu9I07g7sjHOelcV9lJYIegeKnpPNYjgsKrX19CdnfRdxaToFJR2TxdBHLjE4swmanWnpwtTyTRu2T5btd6d3juab6AvHmsxdNnTFUPHO3f4pqJh03s3tOtupSKcHFdolm650L1XQMcSUZqvudieQnZfgAvsG9US6DtRLN8w2FsvS7hmViizK7lKBaW16wN7FDo+qQa/rFLBD0u7azZ5LiV+fg6poAdd/LCyYePVgFVIbI09nObpqqHjX+Fi4BL+czgYfDGwlHimH4ezqxR9bzJ4wBS7GeOg07ek1bFymJDsVXfYhlfx4Z1A54JnhU0KW3AV/GTFJRgrmz/0orxT2226mksSuq/AWz2HIa9gGOoj1Q0U1EkTcsNx1mSPgvnkNWOctIJfn+0Zb1Xrfz3AkN2F/fHn4wcR1UH+/Sb0lwAAAABJRU5ErkJggg=="></image>
+                                    </svg>
+                                    <q>Consectetur adipisicing elitenu sed  eiusmod tempor do incididunt ut labore etna dolore magna aliqua enim minim veniamat quis nostrud exercitation ullamco laboris.</q>
+                                </blockquote>
+                            </div>
+                            <figure>
+                                <img src="~/Assets/Student/images/testimonials/img-03.jpg" alt="img description">
+                            </figure>
+                            <div class="at-testimonials-title">
+                                <h3><a href="javascript:void(0);">Margarito Beverage</a></h3>
+                                <span>Austrailia</span>
+                            </div>
+                        </div>
+                        <div class="at-testimonials-content item">
+                            <div class="at-description">
+                                <blockquote>
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="78" height="28" viewbox="0 0 78 28">
+                                        <image id="img4" data-name="“”" width="78" height="28" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAAAcCAMAAAD4MnnTAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAM1BMVEUAAAD4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCsAAABoLGZQAAAAD3RSTlMAZu7dVRF3mUTMqogiuzPnYEgLAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAa1JREFUSMeNVtGWhSAILE3TtPj/v93aBAfonF0euc4wDNC5y/LGGihui4otUlgXEylHItoL5nK9Uwc+bfSE4lt/U02zlUBvHJLqcaTOJPxvIgDwGo+6YiMJ5utBUjVpKGDlFbaV4qSj0dwJqaZfgbqDPtRlgFK0eu9I07g7sjHOelcV9lJYIegeKnpPNYjgsKrX19CdnfRdxaToFJR2TxdBHLjE4swmanWnpwtTyTRu2T5btd6d3juab6AvHmsxdNnTFUPHO3f4pqJh03s3tOtupSKcHFdolm650L1XQMcSUZqvudieQnZfgAvsG9US6DtRLN8w2FsvS7hmViizK7lKBaW16wN7FDo+qQa/rFLBD0u7azZ5LiV+fg6poAdd/LCyYePVgFVIbI09nObpqqHjX+Fi4BL+czgYfDGwlHimH4ezqxR9bzJ4wBS7GeOg07ek1bFymJDsVXfYhlfx4Z1A54JnhU0KW3AV/GTFJRgrmz/0orxT2226mksSuq/AWz2HIa9gGOoj1Q0U1EkTcsNx1mSPgvnkNWOctIJfn+0Zb1Xrfz3AkN2F/fHn4wcR1UH+/Sb0lwAAAABJRU5ErkJggg=="></image>
+                                    </svg>
+                                    <q>Consectetur adipisicing elitenu sed  eiusmod tempor do incididunt ut labore etna dolore magna aliqua enim minim veniamat quis nostrud exercitation ullamco laboris.</q>
+                                </blockquote>
+                            </div>
+                            <figure>
+                                <img src="~/Assets/Student/images/testimonials/img-01.jpg" alt="img description">
+                            </figure>
+                            <div class="at-testimonials-title">
+                                <h3><a href="javascript:void(0);">Marivel Rosenberry</a></h3>
+                                <span>United Kingdom</span>
+                            </div>
+                        </div>
+                        <div class="at-testimonials-content item">
+                            <div class="at-description">
+                                <blockquote>
+                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="78" height="28" viewbox="0 0 78 28">
+                                        <image id="img5" data-name="“”" width="78" height="28" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE4AAAAcCAMAAAD4MnnTAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAM1BMVEUAAAD4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCv4tCsAAABoLGZQAAAAD3RSTlMAZu7dVRF3mUTMqogiuzPnYEgLAAAAAWJLR0QAiAUdSAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAa1JREFUSMeNVtGWhSAILE3TtPj/v93aBAfonF0euc4wDNC5y/LGGihui4otUlgXEylHItoL5nK9Uwc+bfSE4lt/U02zlUBvHJLqcaTOJPxvIgDwGo+6YiMJ5utBUjVpKGDlFbaV4qSj0dwJqaZfgbqDPtRlgFK0eu9I07g7sjHOelcV9lJYIegeKnpPNYjgsKrX19CdnfRdxaToFJR2TxdBHLjE4swmanWnpwtTyTRu2T5btd6d3juab6AvHmsxdNnTFUPHO3f4pqJh03s3tOtupSKcHFdolm650L1XQMcSUZqvudieQnZfgAvsG9US6DtRLN8w2FsvS7hmViizK7lKBaW16wN7FDo+qQa/rFLBD0u7azZ5LiV+fg6poAdd/LCyYePVgFVIbI09nObpqqHjX+Fi4BL+czgYfDGwlHimH4ezqxR9bzJ4wBS7GeOg07ek1bFymJDsVXfYhlfx4Z1A54JnhU0KW3AV/GTFJRgrmz/0orxT2226mksSuq/AWz2HIa9gGOoj1Q0U1EkTcsNx1mSPgvnkNWOctIJfn+0Zb1Xrfz3AkN2F/fHn4wcR1UH+/Sb0lwAAAABJRU5ErkJggg=="></image>
+                                    </svg>
+                                    <q>Consectetur adipisicing elitenu sed  eiusmod tempor do incididunt ut labore etna dolore magna aliqua enim minim veniamat quis nostrud exercitation ullamco laboris.</q>
+                                </blockquote>
+                            </div>
+                            <figure>
+                                <img src="~/Assets/Student/images/testimonials/img-02.jpg" alt="img description">
+                            </figure>
+                            <div class="at-testimonials-title">
+                                <h3><a href="javascript:void(0);">Vince Hammel</a></h3>
+                                <span>United Emirates</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Testimonials End -->
+    <!-- Articles Start -->
+    <section class="at-haslayout at-main-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-12 col-md-12 push-md-0 col-lg-10 push-lg-1 col-xl-8 push-xl-2">
+                    <div class="at-sectionhead">
+                        <div class="at-sectiontitle">
+                            <h2>Latest Articles &amp; Tips</h2>
+                            <span>Stay Updated With Blogs</span>
+                        </div>
+                        <div class="at-description">
+                            <p>Consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisiut aliquip</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="at-articles">
+                    <div class="col-12 col-md-6 col-lg-4 float-left">
+                        <div class="at-article">
+                            <figure class="at-articleimg">
+                                <img src="~/Assets/Student/images/articles/img-01.jpg" alt="img description">
+                                <figcaption><a href="javascript:void(0);" class="at-tag">Featured</a></figcaption>
+                            </figure>
+                            <div class="at-article-content">
+                                <div class="at-featured-tags"><a href="javascript:void(0);">Admin</a> </div>
+                                <div class="at-title">
+                                    <h4>10 Things All Rooms Should Have</h4>
+                                    <span>Jun 27, 2019</span>
+                                </div>
+                                <div class="at-description">
+                                    <p>Consectetur adipisicing elitm sed at esmod tempor incididunt a labore alor...<a href="javascript:void(0)">[more]</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 float-left">
+                        <div class="at-article">
+                            <figure class="at-articleimg">
+                                <img src="~/Assets/Student/images/articles/img-02.jpg" alt="img description">
+                            </figure>
+                            <div class="at-article-content">
+                                <div class="at-featured-tags"><a href="javascript:void(0);">Margarito Beverage</a> </div>
+                                <div class="at-title">
+                                    <h4>Best Days To Book Hotel For Tour</h4>
+                                    <span>Jun 27, 2019</span>
+                                </div>
+                                <div class="at-description">
+                                    <p>Consectetur adipisicing elitm sed at esmod tempor incididunt a labore alor...<a href="javascript:void(0)">[more]</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-4 float-left">
+                        <div class="at-article">
+                            <figure class="at-articleimg">
+                                <img src="~/Assets/Student/images/articles/img-03.jpg" alt="img description">
+                            </figure>
+                            <div class="at-article-content">
+                                <div class="at-featured-tags"><a href="javascript:void(0);">Marivel Rosenberry</a> </div>
+                                <div class="at-title">
+                                    <h4>Choose Any Place To Travel Anywhere</h4>
+                                    <span>Jun 27, 2019</span>
+                                </div>
+                                <div class="at-description">
+                                    <p>Consectetur adipisicing elitm sed at esmod tempor incididunt a labore alor...<a href="javascript:void(0)">[more]</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Articles End -->
+</main>
+<!-- Main End -->
+
+<script>
+    $(document).ready(function() {
+        // When the MaLoaiKhu dropdown changes, update the Khu dropdown
+        $('#loaiKhu').change(function() {
+            var maLoaiKhu = $(this).val();
+            if (maLoaiKhu) {
+                $.ajax({
+                    url: '@Url.Action("GetKhuByLoaiKhu")',
+                    type: 'GET',
+                    data: { maLoaiKhu: maLoaiKhu },
+                    success: function(data) {
+                        $('#khu').empty().append('<option value="">-- Chọn Khu --</option>');
+                        $.each(data, function(index, khu) {
+                            $('#khu').append('<option value="' + khu.MaKhu + '">' + khu.TenKhu + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#khu').empty().append('<option value="">-- Chọn Khu --</option>');
+                $('#tang').empty().append('<option value="">-- Chọn Tầng --</option>');
+            }
+        });
+
+        // When the MaKhu dropdown changes, update the Tang dropdown
+        $('#khu').change(function() {
+            var maKhu = $(this).val();
+            if (maKhu) {
+                $.ajax({
+                    url: '@Url.Action("GetTangByKhu")',
+                    type: 'GET',
+                    data: { maKhu: maKhu },
+                    success: function(data) {
+                        $('#tang').empty().append('<option value="">-- Chọn Tầng --</option>');
+                        $.each(data, function(index, tang) {
+                            $('#tang').append('<option value="' + tang.MaTang + '">' + tang.TenTang + '</option>');
+                        });
+                    }
+                });
+            } else {
+                $('#tang').empty().append('<option value="">-- Chọn Tầng --</option>');
+            }
+        });
+    });
+</script>
+

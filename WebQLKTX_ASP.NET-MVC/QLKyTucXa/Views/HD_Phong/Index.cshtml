@@ -1,0 +1,262 @@
+﻿
+@{
+    ViewBag.Title = "Xem Hóa Đơn Phòng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-sm-2">
+            <button class="btn btn-primary">Hóa Đơn Phòng</button>
+        </div>
+        <div class="col-sm-4 col-sm-offset-6 text-right">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Tìm kiếm" id="txtSearch" />
+                <div class="input-group-btn">
+                    <button class="btn btn-primary" type="submit" id="btnSearch">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-sm-12 col-sm-offset-0 text-right">
+            <nav aria-label="...">
+                <ul class="pagination pagination-sm" id="phanTrang"></ul>
+            </nav>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Mã dãy phòng
+                </th>
+                <th>
+                    Mã phòng
+                </th>
+                <th>
+                    Năm
+                </th>
+                <th>
+                    Kỳ
+                </th>
+                <th>
+                    Đơn giá
+                </th>
+                <th>
+                    Thành tiền
+                </th>
+                <th>
+                    Trạng thái
+                </th>
+                <th>
+                    Thao tác
+                </th>
+            </tr>
+        </thead>
+        <tbody id="tblDsHDPhong">
+        </tbody>
+    </table>
+
+    @*<div class="modal" tabindex="-1" role="dialog" id="modalHDPhong">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" id="modalTitle"></div>
+                    <div class="panel-body">
+                        <input type="text" hidden id="idHDPhong" value="" />
+
+                        <div class="form-group">
+                            <label>Mã phòng(<span class="text-danger">*</span>):</label>
+                            <select id="selectPhong" class="form-control"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Năm(<span class="text-danger">*</span>):</label>
+                            <input type="number" class="form-control" id="nam" placeholder="Năm">
+                        </div>
+                        <div class="form-group">
+                            <label>Kỳ(<span class="text-danger">*</span>):</label>
+                            <input type="number" class="form-control" id="ky" placeholder="Kỳ(Mỗi kỳ có 6 tháng)">
+                        </div>
+                        <div class="form-group">
+                            <label>Trạng thái(<span class="text-danger">*</span>):</label>
+                            <select class="form-control" name="trangthai" id="trangthai">
+                                <option value="0" selected>Đã thu tiền</option>
+                                <option value="1">Chưa thu tiền</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="btnSubmit">Xác nhận</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+</div>
+
+@section scripts{
+    <script>
+
+        var tuKhoa = "";
+        var trang = 1;
+        $(document).ready(function () {
+            //LoadDsDayphong(); // load danh sách dãy phòng ID -> Mã dãy
+            //LoadDsPhong();// load danh sách dãy phòng ID -> Mã phòng
+            LoadDSHDPhong();//load danh sách hóa đơn phòng
+        })
+
+        //function getHDPhong(idHDPhong) {
+        //    $.ajax({
+        //        url: 'HD_PHONG/ChiTiet',
+        //        type: 'get',
+        //        data: {
+        //            id: idHDPhong
+        //        },
+        //        success: function (data) {
+        //            if (data.code == 200) {
+        //                //console.log(data);
+        //                //alert("Danh sách hóa đơn phòng đã load lên");
+        //                //set giá trị mặc định cho các thành phần của form
+        //                $('#selectPhong').val(data.hdp.ID_PHONG);
+        //                $('#nam').val(data.hdp.NAM);
+        //                $('#ky').val(data.hdp.KY);
+        //                $('#trangthai').val(data.hdp.TRANGTHAI);
+
+        //                //$('#quanTri').prop('checked', data.cb.QUANTRI == 1?true:false);
+        //            } else {
+        //                alert(data.msg);
+        //            }
+        //        }
+        //    });
+        //}
+        ////sự kiện click button chi tiết của mỗi dòng table
+        //$(document).on('click', "button[name='view']", function () {
+        //    let idHDPhong = $(this).closest('tr').attr('id');
+        //    getHDPhong(idHDPhong);
+        //    $('#modalHDPhong').modal();
+
+        //    //set header của modal cán bộ
+        //    $('#modalTitle').text('Thông tin chi tiết của hóa đơn phòng');
+
+        //    $('#selectPhong').prop('readonly', true);
+        //    $('#nam').prop('readonly', true);
+        //    $('#ky').prop('readonly', true);
+        //    $('#trangthai').prop('readonly', true);
+
+
+        //    ////ẩn button xác nhận
+        //    $('#btnSubmit').hide();
+        //});
+
+        $('#btnSearch').click(function () {
+
+            tuKhoa = $('#txtSearch').val();
+
+            LoadDSHDPhong();
+            if (tuKhoa.length == 0) {
+                LoadDSHDPhong();
+            }
+
+        });
+        //load danh sách hóa đơn phòng
+        function LoadDSHDPhong() {
+            $.ajax({
+                url: '/HD_Phong/DsHDPhong',
+                type: 'get',
+
+                data: {
+                    tuKhoa,
+                    trang,
+                    //idDp: $('#selectDayphong option:selected').val()
+                },
+                success: function (data) {
+                    console.log(data);
+                    $('#tblDsHDPhong').empty();
+                    if (data.code == 200) {
+                        //let idx = 1;
+
+                        data.dshdp.forEach(p => {
+                            let tr = '<tr id ="' + p.ID_HOADONPHONG + '">';
+                            //tr += '<td>' + (idx++) + '</td>';
+                            tr += '<td>' + p.MADAYPHONG + '</td>';
+                            tr += '<td>' + p.MAPHONG + '</td>';
+                            tr += '<td>' + (p.NAM == null ? '' : p.NAM) + '</td>';
+                            tr += '<td>' + (p.KY == null ? '' : p.KY) + '</td>';
+                            tr += '<td>' + p.DONGIA + '</td>';
+                            tr += '<td>' + p.THANHTIEN + '</td>';
+                            tr += '<td>' + (p.TRANGTHAIHDP == 0 ? 'Đã thu tiền' : 'Chưa thu tiền') + '</td>';
+                            tr += '<td class = "text-right text-nowrap">';
+                            tr += '<button class = "btn btn-xs btn-info" name="view"><i class="fa fa-info-circle" aria-hidden="true"></i></button>&nbsp;';
+                            tr += '</td>';
+                            tr += '</tr>';
+                            $('#tblDsHDPhong').append(tr);
+                        });
+
+                        //phân trang
+
+                        $('#phanTrang').empty();
+                        for (i = 1; i <= data.soTrang; i++) {
+                            let li = '<li class="page-item" id="' + i + '"><a class="page-link" href="#">' + i + '</a></li>';
+                            $('#phanTrang').append(li);
+                        }
+
+                        let li = $('#phanTrang li#' + trang + '');//tìm li có id = trang truyền vào
+                        //ví dụ trang = 2, sẽ tìm tới cái thằng li có id = 2
+                        //tìm ra đc thằng cần tìm thì add class active để đánh dấu trang hiện tại đang đc load
+                        $(li).addClass('active');
+                    }
+                }
+            })
+        }
+
+        ////load danh sách dãy phòng ID -> Mã dãy
+        //function LoadDsDayphong() {
+        //    $.ajax({
+        //        url: '/CanBo/HOADON_PHONG/ListDayphong',
+        //        type: 'get',
+        //        success: function (data) {
+        //            if (data.code == 200) {
+        //                $('#selectDayphong').empty();
+        //                data.dsdp.forEach(dp => {
+        //                    let option = '<option value="' + dp.ID_DAY + '">' + dp.MADAYPHONG + '</option>';
+        //                    $('#selectDayphong').append(option);
+        //                })
+        //            }
+        //        }
+        //    })
+        //}
+
+        ////load danh sách dãy phòng ID -> Mã phòng
+        //function LoadDsPhong() {
+        //    $.ajax({
+        //        url: '/CanBo/HOADON_PHONG/ListPhong',
+        //        type: 'get',
+        //        success: function (data) {
+        //            if (data.code == 200) {
+        //                $('#selectPhong').empty();
+        //                data.dsp.forEach(dp => {
+        //                    let option = '<option value="' + dp.ID_PHONG + '">' + dp.MAPHONG + '</option>';
+        //                    $('#selectPhong').append(option);
+        //                })
+        //            }
+        //        }
+        //    })
+        //}
+
+        //sự kiện click của trang
+        $("#phanTrang").on("click", "li", function (e) {
+            e.preventDefault();
+            trang = $(this).text();
+            LoadDSHDPhong();
+        });
+
+    </script>
+}
+
