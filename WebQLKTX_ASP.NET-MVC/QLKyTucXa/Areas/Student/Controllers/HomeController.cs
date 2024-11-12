@@ -1,10 +1,11 @@
 ﻿using QLKyTucXa.Models;
+using QuanLyKyTucXa.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
-namespace QLKyTucXa.Areas.Student.Controllers
+namespace QuanLyKyTucXa.Areas.Student.Controllers
 {
     public class HomeController : Controller
     {
@@ -22,6 +23,10 @@ namespace QLKyTucXa.Areas.Student.Controllers
             ViewBag.listKhu = await _db.Khu.ToListAsync();
             ViewBag.listTang = await _db.Tang.ToListAsync();
             ViewBag.listLoaiPhong = await _db.LoaiPhong.ToListAsync();
+
+            ViewBag.listPhong = await _db.Phong.Include(n => n.DichVuPhong)
+                                               .Where(n => n.ConTrong != 0)
+                                               .ToListAsync();
 
             return View();
         }

@@ -1,4 +1,4 @@
-namespace QLKyTucXa.Models
+namespace QuanLyKyTucXa.Models
 {
     using System;
     using System.Collections.Generic;

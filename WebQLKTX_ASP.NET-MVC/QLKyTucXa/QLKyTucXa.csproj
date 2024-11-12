@@ -152,6 +152,7 @@
     <Compile Include="Areas\Student\StudentAreaRegistration.cs" />
     <Compile Include="Common\CanBoLogin.cs" />
     <Compile Include="Common\CommonConstants.cs" />
+    <Compile Include="Common\Const\Constant.cs" />
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\PhongLogin.cs" />
     <Compile Include="Controllers\BaseController.cs" />

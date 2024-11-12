@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace QLKyTucXa.Areas.Student
+namespace QuanLyKyTucXa.Areas.Student
 {
     public class StudentAreaRegistration : AreaRegistration 
     {

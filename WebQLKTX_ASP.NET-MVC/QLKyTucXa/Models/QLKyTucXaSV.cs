@@ -1,3 +1,4 @@
+using QuanLyKyTucXa.Models;
 using System.Data.Entity;
 
 namespace QLKyTucXa.Models
